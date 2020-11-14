@@ -1,0 +1,52 @@
+.card-header
+  .row
+    .col-4
+      = link_to todo_lists_path, class: 'btn btn-info' do
+        %i.far.fa-hand-point-left
+    .col-8
+      .d-flex.justify-content-between
+        %div
+          %h5.m-0
+            %b= @todo_list.title
+            %span{:class => "badge badge-#{@todo_list.badge_color}"}= @todo_list.status
+          %p.text-secondary.m-0
+            %small
+              = @todo_list.percent_complete
+              \% Complete (#{@todo_list.completed_items}/#{@todo_list.total_items} Todo Items)
+        %div
+          = link_to 'Edit', edit_todo_list_path(@todo_list), class: 'btn btn-danger'
+.card-body
+  .progress.mb-4
+    .progress-bar.bg-info{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "#{@todo_list.percent_complete}", :role => "progressbar", :style => "width: #{@todo_list.percent_complete}%"}
+  = form_for([@todo_list, @todo_item]) do |f|
+    .input-group.mb-4
+      = f.text_field :description, class: "form-control", placeholder: "Add some item here", required: true
+      .input-group-append
+        = f.submit "Press 🔘", class: "btn btn-info input-group-btn"
+  %ul.list-group
+    - @todo_list.todo_items.each do |todo_item|
+      - if todo_item.completed?
+        %li.list-group-item
+          .d-flex.justify-content-between
+            %span.text-muted
+              %em= todo_item.description
+            = link_to '#', class: 'btn btn-info', data: { reflex: 'click->TodoItem#incomplete', id: todo_item.id } do
+              %i.fas.fa-check-double
+      - else
+        %li.list-group-item
+          .d-flex.justify-content-between
+            %span
+              %em= todo_item.description
+            = link_to '#', class: 'btn btn-warning', data: { reflex: 'click->TodoItem#complete', id: todo_item.id } do
+              %i.fas.fa-backspace
+          .d-flex.justify-content-between
+            = link_to todo_list_todo_item_path(@todo_list,todo_item), method: :delete, data: { confirm: 'Sure about that..?' }, class: 'btn btn-outline-dark' do
+              %i.fas.fa-eraser
+.card.text-center.border-success.mb-3
+  .card-header
+    Created by
+  .card-body
+    %blockquote.blockquote.mb-0
+      %footer.blockquote-footer
+        DannyⓒElmob for
+        %cite{:title => "Source Title"} Ruby❦Garage

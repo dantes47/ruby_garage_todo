@@ -54,3 +54,6 @@ group :test do
   gem 'webdrivers'
 end
 
+gem 'stimulus_reflex', '~> 3.3'
+gem 'haml-rails', '~> 2.0', '>= 2.0.1'
+

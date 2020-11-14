@@ -1,0 +1,21 @@
+%h1 Listing todo_items
+%table
+  %tr
+    %th Description
+    %th Completed
+    %th Completed at
+    %th Todo list
+    %th
+    %th
+    %th
+  - @todo_items.each do |todo_item|
+    %tr
+      %td= todo_item.description
+      %td= todo_item.completed
+      %td= todo_item.completed_at
+      %td= todo_item.todo_list
+      %td= link_to 'Show', [todo_item.todo_list, todo_item]
+      %td= link_to 'Edit', edit_todo_list_todo_item_path(todo_item.todo_list, todo_item)
+      %td= link_to 'Destroy', [todo_item.todo_list, todo_item], method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New Todo item', new_todo_list_todo_item_path(params[:todo_list_id])
