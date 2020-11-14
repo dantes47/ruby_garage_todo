@@ -1,5 +1,21 @@
-%h1 Editing Todo List
-= render 'form', todo_list: @todo_list
-= link_to 'Show', @todo_list
-|
-= link_to 'Back', todo_lists_path
+.card-header.d-flex.justify-content-between
+  .card-body
+    .row
+      .col-4
+        = link_to 'Show', @todo_list, class: 'btn btn-info'
+      .col-8
+        .d-flex.justify-content-between
+          %div
+            %h5.m-2
+              %h5.m-0.text-dark Edit Todo Lists
+              = render 'form', todo_list: @todo_list
+          %div
+            = link_to 'Back', todo_lists_path, class: 'btn btn-success'
+    .card.text-center.border-warning.mb-3
+      .card-header
+        Created by
+      .card-body
+        %blockquote.blockquote.mb-0
+          %footer.blockquote-footer
+            DannyⓒElmob for
+            %cite{:title => "Source Title"} Ruby❦Garage
